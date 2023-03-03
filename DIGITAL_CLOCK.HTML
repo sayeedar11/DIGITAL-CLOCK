@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIGITAL CLOCK</title>
+    <style>
+        *{
+            padding: 0px;
+            margin: 0px;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+        body{
+            width: 100%;
+            min-height: 100vh;
+            background-color: #15011f;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .title{
+            color:white;
+        }
+        .title h1{
+            letter-spacing: 0.35em;
+            font-weight: 100;
+        }
+        .title p{
+            text-align: center;
+            text-transform: uppercase;
+            font-size: 0.7em;
+            letter-spacing: 0.7em;
+            margin-bottom: 5px;
+        }
+        .main{
+            position: relative;
+            display: flex;
+            gap: 10px;
+        }
+        .main .box{
+            position: relative;
+            width: 120px;
+            height: 140px;
+            background-color: var(--clr);
+            -webkit-box-reflect: below 3px linear-gradient(transparent,#ffffff46);
+        }
+        .main .box::before{
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            background-color: #0606063b;
+        }
+        .main .box .time{
+            position: absolute;
+            color: #ffffff;
+            font-weight: 500;
+            font-size: 3em;
+            width: 100%;
+            height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .main .box svg{
+            position: relative;
+            width: 100%;
+            height: 120px;
+            transform: rotate(-90deg);
+        }
+        .main .box svg circle{
+            transform: translatex(10px) translateY(10px);
+            fill: none;
+            stroke: gray;
+            stroke-width: 5px;
+            stroke-dasharray: 314;
+            stroke-dashoffset:314;
+            stroke-linecap: round;
+        }
+        .main .box svg circle:nth-child(1){
+            stroke: #000000;
+            stroke-dashoffset: 0;
+        }
+        .main .box svg circle:nth-child(2){
+            stroke:#ffffff;
+
+        }
+        .main .box .text{
+            position: absolute;
+            width: 100%;
+            height: 20px;
+            background-color: var(--cr);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            bottom: 0px; 
+        }
+        .main .box .text span{
+            color: #bab7b7;
+            text-transform: uppercase;
+            font-size: 0.7em;
+            letter-spacing: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">
+        <h1>DIGITAL CLOCK</h1>
+        <p>the time is now</p>
+    </div>
+    <div class="main">
+        <div class="hour box" style="--clr:#1c638fb9;">
+            <div class="time hr-time">00</div>
+            <svg>
+                <circle cx="50" cy="50" r="50"></circle>
+                <circle cx="50" cy="50" r="50" class="hc"></circle>
+            </svg>
+            <div class="text" style="--cr:#2f6b9157;"><span>hours</span></div>
+        </div>
+
+        <div class="minute box" style="--clr:#1c638fa1;">
+            <div class="time mn-time">00</div>
+            <svg>
+                <circle cx="50" cy="50" r="50"></circle>
+                <circle cx="50" cy="50" r="50" class="mc"></circle>
+            </svg>
+            <div class="text" style="--cr:#2f6b9157;"><span>minutes</span></div>
+        </div>
+
+        <div class="second box" style="--clr:#890a63be;">
+            <div class="time sc-time">00</div>
+            <svg>
+                <circle cx="50" cy="50" r="50"></circle>
+                <circle cx="50" cy="50" r="50" class="sc"></circle>
+            </svg>
+            <div class="text" style="--cr:#831d6458;"><span>seconds</span></div>
+        </div>
+    </div>
+
+    <script>
+        let hr=document.querySelector(".hr-time");
+        let mn=document.querySelector(".mn-time");
+        let sc=document.querySelector(".sc-time");
+
+        let hc=document.querySelector(".hc");
+        let mc=document.querySelector(".mc");
+        let scc=document.querySelector(".sc");
+
+        setInterval(()=>{
+            let time=new Date();
+
+            let hrs=time.getHours();
+            let min=time.getMinutes();
+            let sec=time.getSeconds();
+
+            hrs= hrs<10 ? "0"+hrs:hrs;
+            min= min<10 ? "0"+min:min;
+            sec= sec<10 ? "0"+sec:sec;
+        
+
+            hr.innerHTML=hrs;
+            mn.innerHTML=min;
+            sc.innerHTML=sec;
+
+            let cal1= 314 - (314 * hrs)/24;
+            let cal2= 314 - (314 * min)/60;
+            let cal3= 314 - (314 * sec)/60;
+
+            hc.style.strokeDashoffset= `${cal1}`;
+            mc.style.strokeDashoffset= `${cal2}`;
+            scc.style.strokeDashoffset= `${cal3}`;
+        })
+    </script>
+</body>
+</html>
