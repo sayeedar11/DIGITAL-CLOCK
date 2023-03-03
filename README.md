@@ -1,2 +1,0 @@
-# DIGITAL-CLOCK
-digital clock
